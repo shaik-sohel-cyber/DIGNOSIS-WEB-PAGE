@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare Diagnostics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', 'Roboto', Arial, sans-serif;
+        }
+        header {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+        }
+        h1, h2, h3 {
+            font-family: Montserrat;
+            font-weight: 500;
+        }
+        p, input, button, a {
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+        }
+        .card-title {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+        }
+        .hero-section {
+            background-color: #f0f8ff;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .card:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+    <script src="scripts/app.js"></script>
+
+</head>
+<body>
+    <header class="bg-primary text-white py-3">
+        <div class="container">
+            <h1 class="text-center">Welcome to TestCare Diagnostics</h1>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <h2 class="hero-title">TakeCare With TestCare</h2>
+        <p>Find reliable lab tests, pricing, and reports with ease.</p>
+    </section>
+
+    <section id="services" class="py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Lab Reporting</h5>
+                            <p class="card-text">Generate, update, and share lab reports easily.</p>
+                            <a href="lab-reporting.html" class="btn btn-outline-primary">Go to Lab Reporting</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Price List</h5>
+                            <p class="card-text">View the latest test prices and packages.</p>
+                            <a href="price-list.html" class="btn btn-outline-primary">Go to Price List</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Create Reports</h5>
+                            <p class="card-text">Generate reports with or without normal ranges.</p>
+                            <a href="create-reports.html" class="btn btn-outline-primary">Go to Create Reports</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2025 TestCare Diagnostics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode/dist/JsBarcode.all.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 5px solid #000;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+        .header-left {
+            flex: 1;
+        }
+        .header-right {
+            flex: 1;
+            text-align: right;
+            font-family: Montserrat;
+        }
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        .header p {
+            margin: 5px 0;
+        }
+        .details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .details-left {
+            flex: 1;
+        }
+        .details-right {
+            flex: 1;
+            text-align: right;
+        }
+        .details p {
+            margin: 3px 0;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f2f2f2;
+        }
+        .remarks-box {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+        .remarks-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .barcode {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .gap{
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <p>Plot no: 16,</p>
+                <p>Near Bachpan School</p>
+                <p>Sai Durga Nagar Colony</p>
+                <p>Hayath Nagar, Hyderabad, 501505</p>
+            </div>
+            <div class="header-right">
+                <h1>TEST CARE DIAGNOSTICS</h1>
+                <p>Take care with test care...</p>
+                <p>Email: testcarediagnosticservices@gmail.com</p>
+                <p>Phone: 9059434020</p>
+            </div>
+        </div>
+        <div class="details">
+            <div class="details-left">
+                <p><strong>Patient Name :</strong> <span id="patientName"></span></p>
+                <p><strong>Age/Gender  :</strong> <span id="ageGender"></span></p>
+                <p><strong>Ref. No   :</strong> <span id="refNo"></span></p>
+                <p><strong>Ref. Doctor :</strong> Self</p>
+            </div>
+            <div class="details-right">
+                <p><strong>Sample Type:</strong> FLUORIDE PLASMA</p>
+                <p><strong>Registered On:</strong> <span id="registeredOn"></span></p>
+                <p><strong>Collected On:</strong> <span id="collectedOn"></span></p>
+                <p><strong>Reporting On:</strong> <span id="reportingOn"></span></p>
+            </div>
+        </div>
+        <div class="gap">
+        <h3 style="text-align: center;">DEPARTMENT OF BIOCHEMISTRY</h3>
+        <p style="text-align: center;"><strong>FASTING & POST LUNCH (FBS & PLBS)</strong></p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Test Name</th>
+                    <th>Observed Values</th>
+                    <th>Units</th>
+                    <th>Biological Reference Intervals</th>
+                </tr>
+            </thead>
+            <tbody id="testDetails"></tbody>
+        </table>
+    </div>
+        <div class="remarks-box">
+            <strong>Remarks:</strong>
+            <p id="remarks">Postprandial hypoglycemia may be observed in certain conditions. Please consult your doctor for more details.</p>
+        </div>
+        <div class="footer">
+            <div class="barcode">
+                <canvas id="barcode"></canvas>
+            </div>
+            <p>----- END OF REPORT -----</p>
+            <p style="text-align: right;">Verified By: Lab Incharge</p>
+        </div>
+    </div>
+
+    <script>
+        const reportDetails = JSON.parse(localStorage.getItem('labReport'));
+
+        if (reportDetails) {
+            document.getElementById('patientName').innerText = reportDetails.patientName;
+            document.getElementById('ageGender').innerText = `${reportDetails.age} YRS / ${reportDetails.gender}`;
+            document.getElementById('refNo').innerText = reportDetails.uniqueId;
+            document.getElementById('registeredOn').innerText = new Date().toLocaleString();
+            document.getElementById('collectedOn').innerText = new Date().toLocaleString();
+            document.getElementById('reportingOn').innerText = new Date().toLocaleString();
+
+            const testDetails = reportDetails.tests.map(test => `
+                <tr>
+                    <td>${test.testName}</td>
+                    <td>${test.result}</td>
+                    <td>${test.unit || 'mg/dl'}</td>
+                    <td>${test.normalRange || 'N/A'}</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('testDetails').innerHTML = testDetails;
+            document.getElementById('remarks').innerText = reportDetails.remarks || document.getElementById('remarks').innerText;
+
+            JsBarcode("#barcode", reportDetails.uniqueId, {
+                format: "CODE128",
+                lineColor: "#000",
+                width: 2,
+                height: 50,
+                displayValue: true
+            });
+        }
+    </script>
+</body>
+</html>
